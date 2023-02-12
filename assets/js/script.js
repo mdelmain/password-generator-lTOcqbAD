@@ -6,6 +6,10 @@ var generateBtn = document.querySelector("#generate");
 // Write password to the #password input
 function writePassword() {
   var passwordLength = prompt("What is the length of your password?");
+  if (isNaN(+passwordLength)){
+    alert("Password length must be an integer!");
+    return;
+  }
   if (passwordLength < 8 || passwordLength > 128){
     alert("Password length must be between 8 and 128 characters.");
     return;
@@ -14,6 +18,10 @@ function writePassword() {
   var useUpperCase = confirm("Use uppercase letters?");
   var useNumeric = confirm("Include numbers?");
   var useSpecialCharacters = confirm("Include special characters?");
+  if (!useLowerCase && !useUpperCase && !useNumeric && !useSpecialCharacters) {
+    alert("At least one password type must be selected.");
+    return;
+  }
   var password = generatePassword(passwordLength, useLowerCase, useUpperCase, useNumeric, useSpecialCharacters);
   var passwordText = document.querySelector("#password");
   passwordText.value = password;
