@@ -7,21 +7,41 @@ var generateBtn = document.querySelector("#generate");
 function writePassword() {
   var passwordLength = prompt("What is the length of your password?");
   if (passwordLength < 8 || passwordLength > 128){
-    alert("Password length must be between 8 and 128 characters.")
+    alert("Password length must be between 8 and 128 characters.");
     return;
   }
-  var password = generatePassword(passwordLength);
+  var useLowerCase = confirm("Use lowercase letters?");
+  var useUpperCase = confirm("Use uppercase letters?");
+  var useNumeric = confirm("Include numbers?");
+  var useSpecialCharacters = confirm("Include special characters?");
+  var password = generatePassword(passwordLength, useLowerCase, useUpperCase, useNumeric, useSpecialCharacters);
   var passwordText = document.querySelector("#password");
   passwordText.value = password;
 }
 
-function generatePassword(passwordLength) {
+function generatePassword(passwordLength, useLowerCase, useUpperCase, useNumeric, useSpecialCharacters) {
   console.log({passwordLength});
-  var randomLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  var lowerCase = "abcdefghijklmnopqrstuvwxyz";
+  var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var numeric = "1234567890";
+  var specialCharacters = "!@#$%^&*()+=.,-_~";
+  var randomCharacters = "";
+  if (useLowerCase){
+    randomCharacters += lowerCase;
+  }
+  if (useUpperCase){
+    randomCharacters += upperCase;
+  }
+  if (useNumeric){
+    randomCharacters += numeric;
+  }
+  if (useSpecialCharacters) {
+    randomCharacters += specialCharacters;
+  }
   var passwordresult = "";
   for (var i = 0; i < passwordLength; i++) {
     passwordresult +=
-      randomLetters[Math.floor(Math.random() * randomLetters.length)];
+      randomCharacters[Math.floor(Math.random() * randomCharacters.length)];
       console.log(passwordresult);
   }
 
